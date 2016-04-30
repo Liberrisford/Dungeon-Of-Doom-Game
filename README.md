@@ -1,4 +1,115 @@
 # Dungeon-Of-Doom-Game
 A game developed as coursework for my First Year Semester 2 at the University of Bath. Including GUI, Networking, Threading, and JNI interface with C code.
 
-This is the first project that was completed and uploaded to my personal GitHub profile
+This is the first project that was completed and uploaded to my personal GitHub profile, the readme for the game follows.
+
+
+Welcome to the README file for Dungeon of Dooom!!!!!!
+============================================================
+This is a game that is designed as a multi threaded server / client model. The server will allow multiple clients to
+connect to the server and all play simultaneously on the same map. This means that players can play with other real humans or 
+they can play with other bots. 
+The default IPAddress and port are:
+IPAddress - localhost
+Port - 40004 
+
+Starting The Game
+============================================================
+To play the game you need to put the .java files into a folder where you know the file path, e.g. a folder in your main drive. You will then need to navigate to that folder using for example terminal on OSX (Mac), or your Operating System equivalent. You will then use “cd <FileName>” to get to the file, done worry if you make a mistake you can go back with “cd ..”!
+Once you are in the file then use “javac *.java” and then first “java DoDServer”, you will do this step once. 
+Then for every player you will use “java DoDClient” and you’re good to go!
+Make sure that the IPAddress and Port are correct (default can be found above).
+
+Ending Client and Server:
+============================================================
+The client will end either when another player has won the game, there is not enough gold in the dungeon for a 
+player to win after a player with gold has quit, or the player clicked the “Quit Game” button. If the player enters quit the client 
+and its threads will end immediately, in the other cases it will wait for the player to enter another command before it will end.
+
+The server will end either when the game is won, or when a player with gold leaves the game and there isn't enough gold in the 
+dungeon for a player to win the game. The server will wait for another client to connect to the server before it shuts down, 
+allowing other players to use commands such as hello to see how far away they were from winning. 
+
+
+Key points in the game:
+============================================================
+- North/South/East/West Button - This will move the player in the desired direction.
+
+- QUIT Button - Quits the game.
+
+- PICKUP  - Pickups the gold piece if the player is currently on one.
+
+- Start Game - This button will start the game when clicked and use the current settings in the text fields on the GUI.
+
+- Enter - This will send the text that is in the text field next to it to all of the currently connected clients. 
+
+- Settings Bar - This is the pane that will initially be where the settings of the game are entered and then after the
+game is started it will be where the settings of the current game can be found. 
+
+- Gold Until Win - This part of the GUI tells the user the amount of gold pieces that the player needs until they can 
+win the game by going onto the exit tile.
+
+Element of the Graphic Pane:
+
+- EXIT - Exit tile, will win the game if the player has the needed amount of gold to exit the dungeon. (Gold Until Win : 0)
+
+- Gold Piece - Represents a piece of gold on the map, move onto the space and use PICKUP to acquire the gold.
+
+- Wall - This is a wall and the side of the dungeon, a player can't move into this. 
+
+- Black Tile - An empty space in the dungeon.
+
+- Other Human - This is either another player or a bot in the dungeon. (Blue for you, red for enemies).
+
+Main Method Files (Actors) - Setting up the Game:
+============================================================
+- Player (DoDClient) - For each player that wants to connect to the server and play the game, the DoDClient.java file
+will be used. This will then open a graphical user interface that can then be used to connect to the server that is desired,
+with the IPAddress, Port and the Name of the player being editable within the text boxes. Once the settings have been used then 
+clicking start game will connect the client to the server and start the game. 
+
+- Server (DoDServer) - Only one server is needed per game, the server needs to be ran and then the map chosen before a client
+is able to connect. The server will ask for a map to be chosen, if you want to play on the default map then you only need to click enter. 
+Otherwise please put the name of your map into the terminal and make sure it is in the correct file location (maps folder). The server will then print 
+to the console the current map so that the server starter can see the map and how many people are playing etc.
+
+- Bot (Bot) - This is a substitute for the player class. It is an AI that will act like a player on the server, it will
+make an attempt to win the game. It will move randomly through the dungeon and then when it sees a gold it will move towards the space the gold is on. 
+Once they have found the needed amount of gold to exit the dungeon it will look for an exit tile. 
+
+
+Files needed for the game:
+============================================================
+- Bot.java
+- BotListener.java
+- BotWriter.java
+- Broadcast.java
+- ClientChatThread.java
+- ClientListener.java
+- ClientWriter.java
+- DoDClient.java
+- DoDServer.java
+- GUIClientController.java
+- GUIClientView.java
+- GUISubmitSettingsChanges.java
+- GUIUpdateGoldDisplay.java
+- GUIUpdateWindow.java
+- IGameLogic.java
+- Map.java
+- MultiplayerLogic.java
+- Player.java
+- Protocol.java
+- RunTestCases.java
+- ServerChangeThread.java
+- ServerData.java 
+- ServerThread.java
+- README.txt
+- cornerTileImage.png
+- evilPlayerImage.png
+- exitImage.png
+- goldImage.png
+- playerImage.png
+- wallImage.png
+
+
+Written by Liam Berrisford on 06/04/2016.
