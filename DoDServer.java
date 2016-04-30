@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  */
 public class DoDServer {
-	private Protocol proto;
+	private ProtocolC proto;
 	private ServerSocket servSocket;
 	private Scanner in;
 	private boolean gameWon;
@@ -25,9 +25,9 @@ public class DoDServer {
 	 */
 	private void start() throws IOException {
 		in = new Scanner(System.in);
-		proto = new Protocol();
+		proto = new ProtocolC();
 		System.out.println("Do you want to load a specitic map?");
-		System.out.println("Press enter for default map");
+		System.out.println("Press enter for default map or 'tempMap.txt' if you want to reload a previous game");
 		proto.selectMap(in.nextLine());
 		servSocket = new ServerSocket(40004);
 		gameWon = false;

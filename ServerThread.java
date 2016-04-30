@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class ServerThread implements Runnable{
 	private Socket clientConnection;
-	private Protocol proto;
+	private ProtocolC proto;
 	private String serverData;
 	private String clientData;
 	private volatile boolean gameInPlay;
@@ -27,7 +27,7 @@ public class ServerThread implements Runnable{
 	 * @param proto - This is the single instance of the game logic that will be played on. 
 	 * @throws IOException 
 	 */
-	public ServerThread(Socket socket, Protocol proto, ArrayList<ServerThread> currentConnections) throws IOException {
+	public ServerThread(Socket socket, ProtocolC proto, ArrayList<ServerThread> currentConnections) throws IOException {
 		clientConnection = socket;
 		this.proto = proto;
 		gameInPlay = true;
@@ -46,14 +46,13 @@ public class ServerThread implements Runnable{
 		//Assigns the player ID to the thread and will then add it to the hashmap of client socket.
 		int playerID = proto.addPlayer();
 		currentClients.put(playerID, clientConnection);
-		
+		System.out.println("The playerID of the player is: " + playerID);
 		
 		try{
 			//Sets up all of the needed streams for the reading and writing from the client.
 			clientData = "";
 			
 			while(gameInPlay) {
-				
 				//while look that will read data and send the response to the client. 
 				while((clientData = fromClient.readLine()) != null) {
 					if(clientData.contains("CHAT")) {
@@ -62,7 +61,9 @@ public class ServerThread implements Runnable{
 						serverData = "";
 						serverData = proto.parseCommand(clientData, playerID);
 						if(serverData.contains("Thank you for playing!")) {
-							shutdown();  
+							toClient.println(serverData);
+							shutdown();
+							return;
 						}
 						toClient.println(serverData);
 						if(clientData.contains("MOVE")) {
@@ -71,9 +72,6 @@ public class ServerThread implements Runnable{
 					}
 				}
 			}
-			//Closes all of the streams  that are used by the server thread when it is shutting down.
-			fromClient.close();
-			toClient.close();
 		} catch(IOException e) {
 			System.err.println("There was an error reading data from the client.");
 			e.printStackTrace();
@@ -92,6 +90,13 @@ public class ServerThread implements Runnable{
 	
 	private void shutdown() {
 		gameInPlay = false;
+		try {
+			fromClient.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		toClient.close();
 	}
  	
 	

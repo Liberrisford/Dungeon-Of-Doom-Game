@@ -1,3 +1,34 @@
+Updates for Coursework 3 
+============================================================
+Everything works the same apart for a few changes:
+- Before reading "Starting The Game" go to the folder jni
+and eneter the command make to run the makefile, if this does 
+not work then the dependicies can be seen that can be manually enetered. 
+
+The new files that were added are:
+In Java:
+-DoDJNI.jaav 
+-ProtocolC.java
+-ProtocolJava.jva (not used but there to swap to java gamelogic code)
+
+In C (jni folder):
+-DoDJNI.c 
+-Map.c
+-MultiplayerLogic.c
+-SavedMap.c
+-StructuresFunction.h
+-FunctionsAndVariables.h
+
+To Change from C to Java code all you have to do is swap in DoDServer and ServerThread ProtocolC for ProtocolJava (hence why the java gamelogic has been left in).
+
+The code was extended from coursework 2 meaning that it is multiplayer, client has a GUI and is networked.
+
+All of the features that were set out where achieved apart from part 4b where the file that has been wrote to the tempMap.txt could not be used to restart the game. The idea was to save the state of the game (map and player stats) every time someone moved to tempMap.txt, which i was able to do successivly, however i was not able to get the readinf of the file completely working, there can be code seen that was wrote to try to implement this, it has been commented and talked about and commented out in the hope of not intruducing bugs. 
+
+
+COURSEWORK 2 README FOLLOWS
+============================================================
+
 Welcome to the README file for Dungeon of Dooom!!!!!!
 ============================================================
 This is a game that is designed as a multi threaded server / client model. The server will allow multiple clients to
